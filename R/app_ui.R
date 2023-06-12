@@ -5,12 +5,39 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+  table_list <- list(
+    "Revenue" = "revenue",
+    "Cost" = "cost"
+  )
+  classification_list <- list(
+    "Food",
+    "Misc",
+    "Rent",
+    "Entertainment",
+    "Debt"
+  )
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      h1("budgeteR")
+      navbarPage(
+        "BudgeteR",
+        tabPanel(
+          "Budget",
+          mod_budget_database_maintenance_ui("budget_database_maintenance_1",
+                                             table_list = table_list,
+                                             classification_list = classification_list)
+        ),
+        tabPanel(
+          "Rent",
+          mod_rental_database_maintenance_ui("rental_database_maintenance_1")
+        ),
+        tabPanel(
+          "Visualize",
+          mod_visualize_budget_ui("visualize_budget_1")
+        )
+      )
     )
   )
 }
