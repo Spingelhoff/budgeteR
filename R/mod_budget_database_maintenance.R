@@ -7,8 +7,14 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_budget_database_maintenance_ui <- function(id, table_list, classification_list){
+mod_budget_database_maintenance_ui <- function(id){
   ns <- NS(id)
+
+  table_list <- list(
+    "Revenue" = "revenue",
+    "Cost" = "cost"
+  )
+
   tagList(
     fluidRow(
       column(
@@ -44,7 +50,7 @@ mod_budget_database_maintenance_ui <- function(id, table_list, classification_li
       column(
         12,
         align = "center",
-        selectInput(ns("transaction_classification"), "Classification", choices = classification_list)
+        selectInput(ns("transaction_classification"), "Classification", choices = NULL)
       )
     ),
     fluidRow(
@@ -103,6 +109,42 @@ mod_budget_database_maintenance_ui <- function(id, table_list, classification_li
 mod_budget_database_maintenance_server <- function(id){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+
+    revenue_classification_list <- list(
+      "Job",
+      "Gig",
+      "Sale",
+      "Government",
+      "Help"
+    )
+
+    cost_classification_list <- list(
+      "Groceries",
+      "Restaurant",
+      "Fuel",
+      "Entertainment",
+      "Subscription",
+      "Debt",
+      "Miscellaneous"
+    )
+
+    observe({
+      table_selection <- input$table_selection
+      if (table_selection == "revenue") {
+        updateSelectInput(
+          session,
+          "transaction_classification",
+          choices = revenue_classification_list
+        )
+      } else if (table_selection == "cost") {
+        updateSelectInput(
+          session,
+          "transaction_classification",
+          choices = cost_classification_list
+        )
+      }
+    })
+
     observeEvent(input$send_transaction_button, {
       showModal(modalDialog(
         title = "Send Record",

@@ -5,17 +5,6 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  table_list <- list(
-    "Revenue" = "revenue",
-    "Cost" = "cost"
-  )
-  classification_list <- list(
-    "Food",
-    "Misc",
-    "Rent",
-    "Entertainment",
-    "Debt"
-  )
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -25,9 +14,7 @@ app_ui <- function(request) {
         "BudgeteR",
         tabPanel(
           "Budget",
-          mod_budget_database_maintenance_ui("budget_database_maintenance_1",
-                                             table_list = table_list,
-                                             classification_list = classification_list)
+          mod_budget_database_maintenance_ui("budget_database_maintenance_1")
         ),
         tabPanel(
           "Rent",
