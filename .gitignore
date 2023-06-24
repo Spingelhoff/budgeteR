@@ -2,6 +2,4 @@
 .Rbuildignore
 .Rhistory
 *.sqlite
-rsconnect/shinyapps.io/szys2b-victor-lao/budgeteR.dcf
-database.sqlite
-rsconnect/shinyapps.io/szys2b-victor-lao/budgeter.dcf
+*.dcf
