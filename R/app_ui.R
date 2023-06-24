@@ -23,6 +23,10 @@ app_ui <- function(request) {
         tabPanel(
           "Visualize",
           mod_visualize_budget_ui("visualize_budget_1")
+        ),
+        tabPanel(
+          "Plan",
+          mod_plan_database_maintenance_ui("plan_database_maintenance_1")
         )
       )
     )
